@@ -3,28 +3,30 @@
   <Table>
     <Group id="1">
       <Sunday>
-        <Time end="2" start="1"/>
-        <Time end="4" start="3"/>
-        <Time end="6" start="5"/>
+        <Time end="3" start="2"/>
+        <Time end="5" start="4"/>
       </Sunday>
       <Monday>
-        <Time end="8" start="7"/>
+        <Time end="7" start="4"/>
+        <Time end="6" start="5"/>
       </Monday>
       <Tuesday>
-        <Time end="14" start="10"/>
+        <Time end="4" start="3"/>
       </Tuesday>
       <Wednesday>
-        <Time end="4" start="1"/>
+        <Time end="8" start="5"/>
       </Wednesday>
       <Thursday>
-        <Time end="9" start="5"/>
+        <Time end="9" start="8"/>
       </Thursday>
       <Friday>
-        <Time end="24" start="22"/>
+        <Time end="34" start="23"/>
       </Friday>
       <Saturday>
-        <Time end="12" start="4"/>
-        <Time end="24" start="15"/>
+        <Time end="6" start="5"/>
+        <Time end="7" start="6"/>
+        <Time end="8" start="7"/>
+        <Time end="9" start="8"/>
       </Saturday>
     </Group>
   </Table>
