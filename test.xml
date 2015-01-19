@@ -1,0 +1,28 @@
+<?xml version="1.0" ?>
+<Routine>
+  <Table>
+    <Group id="1">
+      <Sunday>
+        <Time end="12:00" start="12:00"/>
+      </Sunday>
+      <Monday>
+        <Time end="12:00" start="12:00"/>
+      </Monday>
+      <Tuesday>
+        <Time end="12:00" start="12:00"/>
+      </Tuesday>
+      <Wednesday>
+        <Time end="12:00" start="12:00"/>
+      </Wednesday>
+      <Thursday>
+        <Time end="12:00" start="12:00"/>
+      </Thursday>
+      <Friday>
+        <Time end="12:00" start="12:00"/>
+      </Friday>
+      <Saturday>
+        <Time end="12:00" start="12:00"/>
+      </Saturday>
+    </Group>
+  </Table>
+</Routine>

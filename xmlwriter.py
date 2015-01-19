@@ -25,16 +25,15 @@ def main():
 	root = Element('Routine')
 	tree = ElementTree(root)
 
-	id = int(input("Enter group : "))
+	#id = int(input("Enter group : "))
 
-	Table = GenerateTable(id)
+	Table = GenerateTable(1)
 	root.append(Table)
 
-	x = prettify(root)
-	print(prettify(root))
-
+	xml = prettify(root)
+	#print(prettify(root))
 	with open("test.xml","w") as routine:
-		for line in x:
+		for line in xml:
 			routine.write(line)
 
 if __name__=="__main__":
