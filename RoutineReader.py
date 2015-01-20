@@ -1,5 +1,6 @@
 import xml.etree.ElementTree as ET
-import curses
+import CursesWindow
+import datetime
 
 def GetTimeString(group, day, timeId):
     if not day in group:
@@ -16,7 +17,10 @@ def GetTimeString(group, day, timeId):
 def ParseTimeStr(string):
     time = {}
     strings = string.split(':')
-    time["hr"] = int(strings[0])
+    if (strings[0]!=''):
+        time["hr"] = int(strings[0])
+    else:
+        time["hr"] = 0
     if len(strings) == 2:
         time["min"] = int(strings[1])
     else:
@@ -56,79 +60,53 @@ class RoutineReader:
                 table[int(groupX.attrib['id'])] = group
             self.tables.append(table)
 
-    def GetRoutineAsString(self):
+    def GetRoutine(self):
         tableId=1
         padding = 17
-        string = ""
+        strings = []
         for table in self.tables:
-            string += ("Table #"+str(tableId)+":\n")
-            string += ("Group".center(6) + "Sunday".center(padding) + "Monday".center(padding) + "Tuesday".center(padding) + \
-                    "Wednesday".center(padding) + "Thursday".center(padding) + "Friday".center(padding) + "Saturday".center(padding))
-            string += ("\n\n")
+            strings.append([""])
+            strings.append(["Table #"+str(tableId)+":"])
+            strings.append(["Group".center(6), "Sunday".center(padding), "Monday".center(padding), "Tuesday".center(padding), \
+                    "Wednesday".center(padding), "Thursday".center(padding), "Friday".center(padding), "Saturday".center(padding)])
+            #strings.append([""])
             for groupId, group in table.items():
-                row = str(groupId).center(6)
+                temp = str(groupId)
                 timeId = 0
-                printTime = True
-                while printTime:
-                    row += \
-                        GetTimeString(group, "Sunday", timeId).center(padding) + \
-                        GetTimeString(group, "Monday", timeId).center(padding) + \
-                        GetTimeString(group, "Tuesday", timeId).center(padding) + \
-                        GetTimeString(group, "Wednesday", timeId).center(padding) + \
-                        GetTimeString(group, "Thursday", timeId).center(padding) + \
-                        GetTimeString(group, "Friday", timeId).center(padding) + \
-                        GetTimeString(group, "Saturday", timeId).center(padding)
-                    string += (row+"\n")
-                    if row.find(':') == -1:
-                        printTime = False
+                while True:
+                    substr = [temp.center(6),\
+                        GetTimeString(group, "Sunday", timeId).center(padding), \
+                        GetTimeString(group, "Monday", timeId).center(padding), \
+                        GetTimeString(group, "Tuesday", timeId).center(padding), \
+                        GetTimeString(group, "Wednesday", timeId).center(padding), \
+                        GetTimeString(group, "Thursday", timeId).center(padding), \
+                        GetTimeString(group, "Friday", timeId).center(padding), \
+                        GetTimeString(group, "Saturday", timeId).center(padding)]
+                    if not any(':' in string for string in substr):
+                        break
+                    strings.append(substr)
                     timeId += 1
-                    row = " ".center(6)
-            tableId += 1;
-        return string
+                    temp = " "
+            tableId += 1
+        return strings
 
-def scroll(screen, window, posX, posY):
-    height, width = screen.getmaxyx()
-    window.refresh(posY, posX, 0, 0, height-1, width-1)
-
-def main(screen):
+def main():
     reader = RoutineReader()
     reader.ReadFile('test.xml')
 
-    string = reader.GetRoutineAsString()
-    winwidth = 128
-    winheight = string.count('\n')+1
-    window = curses.newpad(winheight, winwidth)
-    window.addstr(string)
-    window.keypad(True)
-
-    posX = 0
-    posY = 0
-    scroll(screen, window, posX, posY)
+    strings = reader.GetRoutine()
+    width = 126
+    height = len(strings) + 1
+    day = (datetime.datetime.today().weekday() + 1) % 7 + 1
     
-    while (True):
-        event = window.getch()
-        if event == ord('q'):
-            break
-        elif event == ord('l') or event == curses.KEY_RIGHT:
-            height, width = screen.getmaxyx()
-            if posX+1+width < winwidth:
-                posX += 1
-        elif event == ord('h') or event == curses.KEY_LEFT:
-            height, width = screen.getmaxyx()
-            if posX-1 >= 0:
-                posX -= 1
-        elif event == ord('k') or event == curses.KEY_UP:
-            height, width = screen.getmaxyx()
-            if posY-1 >= 0:
-                posY -= 1
-        elif event == ord('j') or event == curses.KEY_DOWN:
-            height, width = screen.getmaxyx()
-            if posY+1+height < winheight:
-                posY += 1
-
-
-        scroll(screen, window, posX, posY)
-    
-    
+    heads = []
+    highlightCells = []
+    for i in range(0, len(strings)):
+        if any(':' in string for string in strings[i]):
+            highlightCells.append([i, day])
+        elif any('Group' in string for string in strings[i]):
+            heads.append(i);
+    window = CursesWindow.CursesWindow(strings, width, height, highlightCells, heads)
+        
 if __name__ == "__main__":
-    curses.wrapper(main)
+    main()
