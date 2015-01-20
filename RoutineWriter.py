@@ -26,6 +26,7 @@ def CreateGroupList(schedule):
 			routine[days[i]] = queue[i]
 		groups[id-1] = routine
 
+	queue_backup.rotate(-1)
 	for id in range(inputid-1,0, -1):
 		queue_backup.rotate(-1)
 		routine = {}
