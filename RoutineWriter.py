@@ -10,10 +10,11 @@ def PrintQueue(queue):
 
 def CreateGroupList(schedule):
 	queue = deque()
+	queue_backup = deque()
 	for day in days:
 		queue.append(schedule[day])
+		queue_backup.append(schedule[day])
 
-	queue_backup = queue
 	inputid = int(schedule['id'])
 	groups = [{}] * 7
 	groups[inputid-1] = schedule
@@ -26,7 +27,6 @@ def CreateGroupList(schedule):
 			routine[days[i]] = queue[i]
 		groups[id-1] = routine
 
-	queue_backup.rotate(-1)
 	for id in range(inputid-1,0, -1):
 		queue_backup.rotate(-1)
 		routine = {}
@@ -38,11 +38,11 @@ def CreateGroupList(schedule):
 	return groups
 
 
-def GenerateGroupTable(schedule):
-	Table = Element("Table")
+def GenerateGroupElement(schedule):
+	#Table = Element("Table")
 	Group = Element("Group")
 	Group.attrib["id"] = schedule["id"]
-	Table.append(Group)
+	#Table.append(Group)
 	Day = [ Element(day) for day in days]
 
 	for i in range(len(Day)):
@@ -53,7 +53,7 @@ def GenerateGroupTable(schedule):
 			time.attrib["end"] = sch[1]
 			Day[i].append(time)
 	Group.extend(Day)
-	return Table
+	return Group
 
 def main():
 	schedule = InputRoutine()
@@ -62,10 +62,11 @@ def main():
 		root = Element('Routine')
 		tree = ElementTree(root)
 		grouplist = CreateGroupList(schedule)
-
+		table_element = Element('Table')
 		for group in grouplist:
-			Table = GenerateGroupTable(group)
-			root.append(Table)
+			group_element = GenerateGroupElement(group)
+			table_element.append(group_element)
+		root.append(table_element)
 
 		xml = prettify(root)
 		with open("test.xml","w") as routine:
