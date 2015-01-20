@@ -1,5 +1,7 @@
 import re
 
+days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+
 class InputError(Exception):
 	def __init__(self, arg):
 		self.args = arg
@@ -34,7 +36,6 @@ def InputRoutine():
 		return {}
 	else: 
 		print("yay")
-	days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
 	for day in days:
 		routine[day] = []
 		fin = False

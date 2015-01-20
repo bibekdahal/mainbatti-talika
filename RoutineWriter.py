@@ -2,8 +2,40 @@ from xml.etree.ElementTree import Element, SubElement, Comment, ElementTree
 from ElementTree_Pretty import prettify
 import xml.etree.ElementTree as ElemTree
 from RoutineInput import *
+from collections import deque
 
-days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+def PrintQueue(queue):
+	for item in queue:
+		print(item)
+
+def CreateGroupList(schedule):
+	queue = deque()
+	for day in days:
+		queue.append(schedule[day])
+
+	queue_backup = queue
+	inputid = int(schedule['id'])
+	groups = [{}] * 7
+	groups[inputid-1] = schedule
+
+	for id in range(inputid+1,8):
+		queue.rotate(1)
+		routine = {}
+		routine['id'] = str(id)
+		for i in range(0,7):
+			routine[days[i]] = queue[i]
+		groups[id-1] = routine
+
+	for id in range(inputid-1,0, -1):
+		queue_backup.rotate(-1)
+		routine = {}
+		routine['id'] = str(id)
+		for i in range(0,7):
+			routine[days[i]] = queue_backup[i]
+		groups[id-1] = routine
+
+	return groups
+
 
 def GenerateGroupTable(schedule):
 	Table = Element("Table")
@@ -24,12 +56,16 @@ def GenerateGroupTable(schedule):
 
 def main():
 	schedule = InputRoutine()
-	root = Element('Routine')
-	tree = ElementTree(root)
 
 	if schedule:
-		Table = GenerateGroupTable(schedule)
-		root.append(Table)
+		root = Element('Routine')
+		tree = ElementTree(root)
+		grouplist = CreateGroupList(schedule)
+
+		for group in grouplist:
+			Table = GenerateGroupTable(group)
+			root.append(Table)
+
 		xml = prettify(root)
 		with open("test.xml","w") as routine:
 			for line in xml:
