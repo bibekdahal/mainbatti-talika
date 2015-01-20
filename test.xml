@@ -3,30 +3,188 @@
   <Table>
     <Group id="1">
       <Sunday>
-        <Time end="3" start="2"/>
-        <Time end="5" start="4"/>
+        <Time end="3:4" start="2:3"/>
       </Sunday>
       <Monday>
-        <Time end="7" start="4"/>
-        <Time end="6" start="5"/>
+        <Time end="" start=""/>
       </Monday>
       <Tuesday>
-        <Time end="4" start="3"/>
+        <Time end="" start=""/>
       </Tuesday>
       <Wednesday>
-        <Time end="8" start="5"/>
+        <Time end="" start=""/>
       </Wednesday>
       <Thursday>
-        <Time end="9" start="8"/>
+        <Time end="" start=""/>
       </Thursday>
       <Friday>
-        <Time end="34" start="23"/>
+        <Time end="" start=""/>
       </Friday>
       <Saturday>
-        <Time end="6" start="5"/>
-        <Time end="7" start="6"/>
-        <Time end="8" start="7"/>
-        <Time end="9" start="8"/>
+        <Time end="" start=""/>
+      </Saturday>
+    </Group>
+    <Group id="2">
+      <Sunday>
+        <Time end="3:4" start="2:3"/>
+      </Sunday>
+      <Monday>
+        <Time end="" start=""/>
+      </Monday>
+      <Tuesday>
+        <Time end="" start=""/>
+      </Tuesday>
+      <Wednesday>
+        <Time end="" start=""/>
+      </Wednesday>
+      <Thursday>
+        <Time end="" start=""/>
+      </Thursday>
+      <Friday>
+        <Time end="" start=""/>
+      </Friday>
+      <Saturday>
+        <Time end="" start=""/>
+      </Saturday>
+    </Group>
+    <Group id="3">
+      <Sunday>
+        <Time end="3:4" start="2:3"/>
+      </Sunday>
+      <Monday>
+        <Time end="" start=""/>
+      </Monday>
+      <Tuesday>
+        <Time end="" start=""/>
+      </Tuesday>
+      <Wednesday>
+        <Time end="" start=""/>
+      </Wednesday>
+      <Thursday>
+        <Time end="" start=""/>
+      </Thursday>
+      <Friday>
+        <Time end="" start=""/>
+      </Friday>
+      <Saturday>
+        <Time end="" start=""/>
+      </Saturday>
+    </Group>
+    <Group id="4">
+      <Sunday>
+        <Time end="3:4" start="2:3"/>
+      </Sunday>
+      <Monday>
+        <Time end="" start=""/>
+      </Monday>
+      <Tuesday>
+        <Time end="" start=""/>
+      </Tuesday>
+      <Wednesday>
+        <Time end="" start=""/>
+      </Wednesday>
+      <Thursday>
+        <Time end="" start=""/>
+      </Thursday>
+      <Friday>
+        <Time end="" start=""/>
+      </Friday>
+      <Saturday>
+        <Time end="" start=""/>
+      </Saturday>
+    </Group>
+  </Table>
+  <Table>
+    <Group id="1">
+      <Sunday>
+        <Time end="3:4" start="2:3"/>
+      </Sunday>
+      <Monday>
+        <Time end="" start=""/>
+      </Monday>
+      <Tuesday>
+        <Time end="" start=""/>
+      </Tuesday>
+      <Wednesday>
+        <Time end="" start=""/>
+      </Wednesday>
+      <Thursday>
+        <Time end="" start=""/>
+      </Thursday>
+      <Friday>
+        <Time end="" start=""/>
+      </Friday>
+      <Saturday>
+        <Time end="" start=""/>
+      </Saturday>
+    </Group>
+    <Group id="2">
+      <Sunday>
+        <Time end="3:4" start="2:3"/>
+      </Sunday>
+      <Monday>
+        <Time end="" start=""/>
+      </Monday>
+      <Tuesday>
+        <Time end="" start=""/>
+      </Tuesday>
+      <Wednesday>
+        <Time end="" start=""/>
+      </Wednesday>
+      <Thursday>
+        <Time end="" start=""/>
+      </Thursday>
+      <Friday>
+        <Time end="" start=""/>
+      </Friday>
+      <Saturday>
+        <Time end="" start=""/>
+      </Saturday>
+    </Group>
+    <Group id="3">
+      <Sunday>
+        <Time end="3:4" start="2:3"/>
+      </Sunday>
+      <Monday>
+        <Time end="" start=""/>
+      </Monday>
+      <Tuesday>
+        <Time end="" start=""/>
+      </Tuesday>
+      <Wednesday>
+        <Time end="" start=""/>
+      </Wednesday>
+      <Thursday>
+        <Time end="" start=""/>
+      </Thursday>
+      <Friday>
+        <Time end="" start=""/>
+      </Friday>
+      <Saturday>
+        <Time end="" start=""/>
+      </Saturday>
+    </Group>
+    <Group id="4">
+      <Sunday>
+        <Time end="3:4" start="2:3"/>
+      </Sunday>
+      <Monday>
+        <Time end="" start=""/>
+      </Monday>
+      <Tuesday>
+        <Time end="" start=""/>
+      </Tuesday>
+      <Wednesday>
+        <Time end="" start=""/>
+      </Wednesday>
+      <Thursday>
+        <Time end="" start=""/>
+      </Thursday>
+      <Friday>
+        <Time end="" start=""/>
+      </Friday>
+      <Saturday>
+        <Time end="" start=""/>
       </Saturday>
     </Group>
   </Table>
