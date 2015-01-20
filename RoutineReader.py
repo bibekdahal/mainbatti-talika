@@ -1,5 +1,6 @@
 import xml.etree.ElementTree as ET
 import CursesWindow
+import sys
 import datetime
 
 def GetTimeString(group, day, timeId):
@@ -63,7 +64,7 @@ class RoutineReader:
     def GetRoutine(self):
         tableId=1
         padding = 17
-        strings = []
+        strings = ["LoadShedding Schedule"]
         for table in self.tables:
             strings.append([""])
             strings.append(["Table #"+str(tableId)+":"])
@@ -83,6 +84,7 @@ class RoutineReader:
                         GetTimeString(group, "Friday", timeId).center(padding), \
                         GetTimeString(group, "Saturday", timeId).center(padding)]
                     if not any(':' in string for string in substr):
+                        strings.append([""])
                         break
                     strings.append(substr)
                     timeId += 1
@@ -90,9 +92,9 @@ class RoutineReader:
             tableId += 1
         return strings
 
-def main():
+def main(filename):
     reader = RoutineReader()
-    reader.ReadFile('test.xml')
+    reader.ReadFile(filename)
 
     strings = reader.GetRoutine()
     width = 126
@@ -106,7 +108,11 @@ def main():
             highlightCells.append([i, day])
         elif any('Group' in string for string in strings[i]):
             heads.append(i);
+
     window = CursesWindow.CursesWindow(strings, width, height, highlightCells, heads)
         
 if __name__ == "__main__":
-    main()
+    filename = "test.xml"
+    if len(sys.argv) > 1:
+        filename = sys.argv[1]
+    main(filename)
