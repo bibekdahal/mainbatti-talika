@@ -30,7 +30,7 @@ def IsXML(input):
 
 def ArgumentParser():
 	arguments = sys.argv[1::]
-	filename = None
+	filename = "test.xml"
 	group = -1
 	twelveHr = False
 	nepali = False
