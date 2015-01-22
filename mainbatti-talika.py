@@ -10,20 +10,21 @@ class ArgumentError(Exception):
 	def display(self):
 		print(''.join(self.args))
 
+group_re = re.compile(r'^g[1-7]$')
+time_re = re.compile(r'^(-twelve)|(--12)$')
+lang_re = re.compile(r'^(-nepali)|(--n)$')
+file_re = re.compile(r'^[a-z]+.xml$')
+
 def IsGroup(input):
-	group_re = re.compile(r'^g[1-7]$')
 	return bool(group_re.match(input))
 
 def IsTime(input):
-	time_re = re.compile(r'^(-twelve)|(--12)$')
 	return bool(time_re.match(input))
 
 def IsNepali(input):
-	lang_re = re.compile(r'^(-nepali)|(--n)$')
 	return bool(lang_re.match(input))
 
 def IsXML(input):
-	file_re = re.compile(r'^[a-z]+.xml$')
 	return bool(file_re.match(input))
 
 def ArgumentParser():
