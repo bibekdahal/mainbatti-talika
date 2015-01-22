@@ -5,7 +5,7 @@ import RoutineReader
 import re
 
 class ArgumentError(Exception):
-	def __init__(self,message, arg=" "):
+	def __init__(self,message, arg):
 		self.message = message
 		self.arg = arg
 	def display(self):
@@ -56,7 +56,7 @@ def ArgumentParser():
 	
 	try:
 		if not filename:
-			raise ArgumentError(":D cannot load... invlid filename : ", arg)
+			raise ArgumentError(":D cannot load... invlid filename : ", filename)
 		else:
 			RoutineReader.main(filename, group, nepali, twelveHr)
 	except ArgumentError as e:
