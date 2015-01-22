@@ -58,7 +58,13 @@ def ArgumentParser():
 		if not filename:
 			raise ArgumentError(":D cannot load... invlid filename : ", filename)
 		else:
-			RoutineReader.main(filename, group, nepali, twelveHr)
+			try:
+				file = open(filename, "r")
+				file.close()
+				RoutineReader.main(filename, group, nepali, twelveHr)
+			except IOError:
+				print(" LOL file doesnt exist")
+			
 	except ArgumentError as e:
 		e.display()
 
