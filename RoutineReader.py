@@ -3,8 +3,21 @@ import CursesWindow
 import sys
 import datetime
 
-
 GetNumber = CursesWindow.GetNumber
+
+def TwoDigits(x):
+    return GetNumber(x).rjust(2, GetNumber(0))
+
+def GetTime(hr, mn):
+    mnstr = ":" + TwoDigits(mn)
+    if CursesWindow.Hour24:
+        return TwoDigits(hr) + mnstr
+    if hr > 12:
+        return TwoDigits(hr-12) + mnstr + " PM"
+    if hr == 12:
+        return TwoDigits(hr) + mnstr + " PM"
+    return TwoDigits(hr) + mnstr + " AM"
+
 def GetTimeString(group, day, timeId):
     if not day in group:
         return "not found"
@@ -12,9 +25,9 @@ def GetTimeString(group, day, timeId):
     if timeId >= len(times):
         return ""
     time = times[timeId]
-    string = GetNumber(time["start"]["hr"]).rjust(2, GetNumber(0)) + ":" + GetNumber(time["start"]["min"]).rjust(2, GetNumber(0)) \
+    string = GetTime(time["start"]["hr"], time["start"]["min"]) \
             + " - " + \
-            GetNumber(time["end"]["hr"]).rjust(2, GetNumber(0)) + ":" + GetNumber(time["end"]["min"]).rjust(2, GetNumber(0))
+            GetTime(time["end"]["hr"], time["end"]["min"]) 
     return string
 
 def ParseTimeStr(string):
@@ -66,6 +79,8 @@ class RoutineReader:
     def GetRoutine(self):
         tableId=1
         padding = 17
+        if not CursesWindow.Hour24:
+            padding = 22
         strings = ["LoadShedding Schedule"]
         for table in self.tables:
             strings.append([""])
@@ -100,6 +115,8 @@ def main(filename):
 
     strings = reader.GetRoutine()
     width = 126
+    if not CursesWindow.Hour24:
+        width = 161
     height = len(strings) + 1
     day = (datetime.datetime.today().weekday() + 1) % 7 + 1
     

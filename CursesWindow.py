@@ -19,6 +19,8 @@ Language = English
 def GetNumber(number):
     return Language(number)
 
+Hour24 = True
+
 class CursesWindow:
     def __init__(self, strings, width, height, highlights, headrows):
         self.strings = strings
@@ -33,6 +35,7 @@ class CursesWindow:
         curses.wrapper(self.main)
 
     def main(self, screen):
+        screen.clear()
         self.window = curses.newpad(self.height, self.width)
         curses.init_pair(1, curses.COLOR_YELLOW, curses.COLOR_BLACK)
         i = 0
@@ -55,9 +58,11 @@ class CursesWindow:
     
         self.scroll()
         global Language
+        global Hour24
         while (True):
             event = self.window.getch()
             if event == ord('q'):
+                self.refresh = False
                 break
             elif event == ord('n'):
                 Language = Nepali
@@ -65,6 +70,10 @@ class CursesWindow:
                 break
             elif event == ord('e'):
                 Language = English
+                self.refresh = True
+                break
+            elif event == ord('t'):
+                Hour24 = not Hour24
                 self.refresh = True
                 break
             elif event == ord('l') or event == curses.KEY_RIGHT:
