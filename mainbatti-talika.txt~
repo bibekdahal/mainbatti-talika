@@ -31,7 +31,7 @@ Usage:
 	IV) 12hr format or 24hr format:
 		usage : -twelve
 		usage : --12
-		If not specified 24 hr format is chosend
+		If not specified 24 hr format is chosen
 
 4) The Optional parameters can be in any order
 
@@ -51,6 +51,7 @@ Main Application :
 2) Hit 'n' for nepali
 3) Hit 'e' for english
 4) Hit 'c' for color toggle
+5) Hit '1' or'2' ... '7' to highlight the selected group
 
 -----------------------------------------------------------------------------------------------
 
