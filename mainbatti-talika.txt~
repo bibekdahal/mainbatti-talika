@@ -36,7 +36,7 @@ Usage:
 4) The Optional parameters can be in any order
 
 5) Sample example :
-	I) ./mainbatti-talika 
+	I) ./mainbatti-talika.py 
 		-> loads the schedule with all the 4 default parameters
 		-> defaults : test.xml, all gorups, english , 24 hr format
 
