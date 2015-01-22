@@ -16,13 +16,15 @@ def English(number):
     return str(number)
 
 Language = English
+
 def GetNumber(number):
     return Language(number)
 
 Hour24 = True
+Group = -1
 
 class CursesWindow:
-    def __init__(self, strings, width, height, highlights, headrows):
+    def __init__(self, strings, width, height, highlights, headrows, groups):
         self.strings = strings
         self.width = width
         self.height = height
@@ -30,25 +32,37 @@ class CursesWindow:
         self.posY = 0
         self.hlts = highlights
         self.heads = headrows
+        self.groups = groups
         self.Language = English
         self.refresh = False
         curses.wrapper(self.main)
 
     def main(self, screen):
+        global Language
+        global Hour24
+        global Group
+
         screen.clear()
         self.window = curses.newpad(self.height, self.width)
         curses.init_pair(1, curses.COLOR_YELLOW, curses.COLOR_BLACK)
+#        curses.init_pair(2, curses.COLOR_GREEN, curses.COLOR_BLACK)
         i = 0
+        extras = 0
         for row in self.strings:
             j = 0
             for string in row:
+                if i in self.groups:
+                    if self.groups.index(i) == Group-1:
+                        extras = curses.A_BOLD | curses.color_pair(1)
+                    else:
+                        extras = 0
                 if [i,j] in self.hlts:
-                    self.window.addstr(string, curses.color_pair(1))
+                    self.window.addstr(string, curses.color_pair(1) | extras)
                 else:
                     if i in self.heads:
                         self.window.addstr(string, curses.A_BOLD | curses.A_REVERSE)
                     else:
-                        self.window.addstr(string)
+                        self.window.addstr(string, extras)
                 j += 1
             self.window.addstr('\n')
             i += 1
@@ -57,8 +71,6 @@ class CursesWindow:
         self.screen = screen
     
         self.scroll()
-        global Language
-        global Hour24
         while (True):
             event = self.window.getch()
             if event == ord('q'):
@@ -74,6 +86,10 @@ class CursesWindow:
                 break
             elif event == ord('t'):
                 Hour24 = not Hour24
+                self.refresh = True
+                break
+            elif event >= ord('0') and event <= ord('9'):
+                Group = event - ord('0')
                 self.refresh = True
                 break
             elif event == ord('l') or event == curses.KEY_RIGHT:
@@ -92,7 +108,7 @@ class CursesWindow:
                 height, width = self.screen.getmaxyx()
                 if self.posY+1+height < self.height:
                     self.posY += 1
-    
+            
             self.scroll()
     
     def scroll(self):

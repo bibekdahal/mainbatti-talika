@@ -109,7 +109,14 @@ class RoutineReader:
             tableId += 1
         return strings
 
-def main(filename):
+def main(filename, group = -1, nepali = False, twelveHr = False):
+    if group > -1:
+        CursesWindow.Group = group
+    if nepali:
+        CursesWindow.Language = CursesWindow.Nepali
+    if twelveHr:
+        CursesWindow.Hour24 = False
+
     reader = RoutineReader()
     reader.ReadFile(filename)
 
@@ -122,13 +129,16 @@ def main(filename):
     
     heads = []
     highlightCells = []
+    groups = []
     for i in range(0, len(strings)):
-        if any(':' in string for string in strings[i]):
+        if any(':' in string for string in strings[i]) and len(strings[i]) > 1:
             highlightCells.append([i, day])
+            if not strings[i][0].isspace():
+                groups.append(i)
         elif any('Group' in string for string in strings[i]):
             heads.append(i);
 
-    window = CursesWindow.CursesWindow(strings, width, height, highlightCells, heads)
+    window = CursesWindow.CursesWindow(strings, width, height, highlightCells, heads, groups)
     if window.refresh:
         main(filename)
         
