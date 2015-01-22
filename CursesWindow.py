@@ -21,6 +21,7 @@ def GetNumber(number):
     return Language(number)
 
 Hour24 = True
+TerminalColors = True
 Group = -1
 
 class CursesWindow:
@@ -41,11 +42,20 @@ class CursesWindow:
         global Language
         global Hour24
         global Group
+        global TerminalColors
 
+        curses.use_default_colors()
+        back = curses.COLOR_BLACK
+        if TerminalColors:
+            back = -1
+        
+        curses.init_pair(1, curses.COLOR_YELLOW, back)
+        curses.init_pair(2, -1, back)
+        screen.bkgd(curses.color_pair(2))
         screen.clear()
         self.window = curses.newpad(self.height, self.width)
-        curses.init_pair(1, curses.COLOR_YELLOW, curses.COLOR_BLACK)
-#        curses.init_pair(2, curses.COLOR_GREEN, curses.COLOR_BLACK)
+        self.window.bkgd(curses.color_pair(2))
+#        curses.init_pair(2, curses.COLOR_GREEN, back)
         i = 0
         extras = 0
         for row in self.strings:
@@ -86,6 +96,10 @@ class CursesWindow:
                 break
             elif event == ord('t'):
                 Hour24 = not Hour24
+                self.refresh = True
+                break
+            elif event == ord('c'):
+                TerminalColors = not TerminalColors
                 self.refresh = True
                 break
             elif event >= ord('0') and event <= ord('9'):
