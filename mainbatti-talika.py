@@ -5,10 +5,11 @@ import RoutineReader
 import re
 
 class ArgumentError(Exception):
-	def __init__(self,arg):
+	def __init__(self,message, arg=" "):
+		self.message = message
 		self.arg = arg
 	def display(self):
-		print(''.join(self.args))
+		print(''.join(self.message), self.arg)
 
 group_re = re.compile(r'^g[1-7]$')
 time_re = re.compile(r'^(-twelve)|(--12)$')
@@ -48,14 +49,14 @@ def ArgumentParser():
 				filename = arg
 				print(arg)
 			else:
-				raise ArgumentError("invalid arguments ... cannot load :D")
+				raise ArgumentError(":D cannot load... invlid argument : ", arg)
 		except ArgumentError as e:
 			e.display()
 			return
 	
 	try:
 		if not filename:
-			raise ArgumentError("Invalid filename ... cannot laod :D")
+			raise ArgumentError(":D cannot load... invlid filename : ", arg)
 		else:
 			RoutineReader.main(filename, group, nepali, twelveHr)
 	except ArgumentError as e:
