@@ -1,5 +1,24 @@
 import curses
 
+nepaliDigits = [ '०', '१', '२', '३', '४', '५', '६', '७', '८', '९' ]
+
+def Nepali(number):
+    if number==0:
+        return nepaliDigits[0]
+    n = number
+    text = '';
+    while (n != 0):
+        text = nepaliDigits[n%10] + text
+        n = int(n/10)
+    return text
+
+def English(number):
+    return str(number)
+
+Language = English
+def GetNumber(number):
+    return Language(number)
+
 class CursesWindow:
     def __init__(self, strings, width, height, highlights, headrows):
         self.strings = strings
@@ -9,6 +28,8 @@ class CursesWindow:
         self.posY = 0
         self.hlts = highlights
         self.heads = headrows
+        self.Language = English
+        self.refresh = False
         curses.wrapper(self.main)
 
     def main(self, screen):
@@ -33,9 +54,18 @@ class CursesWindow:
         self.screen = screen
     
         self.scroll()
+        global Language
         while (True):
             event = self.window.getch()
             if event == ord('q'):
+                break
+            elif event == ord('n'):
+                Language = Nepali
+                self.refresh = True
+                break
+            elif event == ord('e'):
+                Language = English
+                self.refresh = True
                 break
             elif event == ord('l') or event == curses.KEY_RIGHT:
                 height, width = self.screen.getmaxyx()

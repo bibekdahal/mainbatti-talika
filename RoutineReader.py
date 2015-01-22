@@ -3,6 +3,8 @@ import CursesWindow
 import sys
 import datetime
 
+
+GetNumber = CursesWindow.GetNumber
 def GetTimeString(group, day, timeId):
     if not day in group:
         return "not found"
@@ -10,9 +12,9 @@ def GetTimeString(group, day, timeId):
     if timeId >= len(times):
         return ""
     time = times[timeId]
-    string = str(time["start"]["hr"]).zfill(2) + ":" + str(time["start"]["min"]).zfill(2) \
+    string = GetNumber(time["start"]["hr"]).rjust(2, GetNumber(0)) + ":" + GetNumber(time["start"]["min"]).rjust(2, GetNumber(0)) \
             + " - " + \
-            str(time["end"]["hr"]).zfill(2) + ":" + str(time["end"]["min"]).zfill(2)
+            GetNumber(time["end"]["hr"]).rjust(2, GetNumber(0)) + ":" + GetNumber(time["end"]["min"]).rjust(2, GetNumber(0))
     return string
 
 def ParseTimeStr(string):
@@ -67,12 +69,12 @@ class RoutineReader:
         strings = ["LoadShedding Schedule"]
         for table in self.tables:
             strings.append([""])
-            strings.append(["Table #"+str(tableId)+":"])
+            strings.append(["Table #"+GetNumber(tableId)+":"])
             strings.append(["Group".center(6), "Sunday".center(padding), "Monday".center(padding), "Tuesday".center(padding), \
                     "Wednesday".center(padding), "Thursday".center(padding), "Friday".center(padding), "Saturday".center(padding)])
             #strings.append([""])
             for groupId, group in table.items():
-                temp = str(groupId)
+                temp = GetNumber(groupId)
                 timeId = 0
                 while True:
                     substr = [temp.center(6),\
@@ -110,6 +112,8 @@ def main(filename):
             heads.append(i);
 
     window = CursesWindow.CursesWindow(strings, width, height, highlightCells, heads)
+    if window.refresh:
+        main(filename)
         
 if __name__ == "__main__":
     filename = "test.xml"
