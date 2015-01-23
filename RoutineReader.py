@@ -81,7 +81,7 @@ class RoutineReader:
         padding = 17
         if not CursesWindow.Hour24:
             padding = 22
-        strings = ["LoadShedding Schedule"]
+        strings = [["LoadShedding Schedule"]]
         for table in self.tables:
             strings.append([""])
             strings.append(["Table #"+GetNumber(tableId)+":"])

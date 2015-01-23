@@ -23,14 +23,14 @@ def GetNumber(number):
 Hour24 = True
 TerminalColors = True
 Group = -1
+PosX = 0
+PosY = 0
 
 class CursesWindow:
     def __init__(self, strings, width, height, highlights, headrows, groups):
         self.strings = strings
         self.width = width
         self.height = height
-        self.posX = 0
-        self.posY = 0
         self.hlts = highlights
         self.heads = headrows
         self.groups = groups
@@ -43,6 +43,7 @@ class CursesWindow:
         global Hour24
         global Group
         global TerminalColors
+        global PosX, PosY
 
         curses.use_default_colors()
         back = curses.COLOR_BLACK
@@ -108,26 +109,26 @@ class CursesWindow:
                 break
             elif event == ord('l') or event == curses.KEY_RIGHT:
                 height, width = self.screen.getmaxyx()
-                if self.posX+1+width < self.width:
-                    self.posX += 1
+                if PosX+1+width < self.width:
+                    PosX += 1
             elif event == ord('h') or event == curses.KEY_LEFT:
                 height, width = self.screen.getmaxyx()
-                if self.posX-1 >= 0:
-                    self.posX -= 1
+                if PosX-1 >= 0:
+                    PosX -= 1
             elif event == ord('k') or event == curses.KEY_UP:
                 height, width = self.screen.getmaxyx()
-                if self.posY-1 >= 0:
-                    self.posY -= 1
+                if PosY-1 >= 0:
+                    PosY -= 1
             elif event == ord('j') or event == curses.KEY_DOWN:
                 height, width = self.screen.getmaxyx()
-                if self.posY+1+height < self.height:
-                    self.posY += 1
+                if PosY+1+height < self.height:
+                    PosY += 1
             
             self.scroll()
     
     def scroll(self):
         height, width = self.screen.getmaxyx()
-        self.window.refresh(self.posY, self.posX, 0, 0, height-1, width-1)
+        self.window.refresh(PosY, PosX, 0, 0, height-1, width-1)
     
 
 
