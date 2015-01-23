@@ -1,0 +1,62 @@
+
+----------------------------------------------------------------------------------------------------
+
+About:
+It's just a simple terminal/console application for viewing loadshedding schedule
+
+------------------------------------------------------------------------------------------------------
+
+Usage:
+1) First thing's first, open the terminal.
+
+2) Hit the command "./mainbatti-talika [optional parameters -> filename, gourpID, neapli/english, 12hr/24hr format] "
+   without any qotes.
+
+3) Optional Parameters:
+	I) filename : 
+		only xmls allowed as filename.xml
+		default: test.xml
+	
+	II) groupID :
+		usage : gID 
+		ID is from 1 to 7 
+		Loads the whole schedule with group no. ID being highlighted
+		If not specified all groups are shown by default
+	
+	III) nepali/english : 
+		usage : -nepali
+		usage : --n
+		If not specified english is chosen by default
+	
+	IV) 12hr format or 24hr format:
+		usage : -twelve
+		usage : --12
+		If not specified 24 hr format is chosen
+
+4) The Optional parameters can be in any order
+
+5) Sample example :
+	I) ./mainbatti-talika.py 
+		-> loads the schedule with all the 4 default parameters
+		-> defaults : test.xml, all gorups, english , 24 hr format
+
+	II) ./mainbatti-talika g6 -nepali
+		-> loads default test.xml file with 24 hr format of group 6 in nepali
+
+-----------------------------------------------------------------------------------------------------
+
+Main Application : 
+
+1) Hit 't' to toggle time format -> 12hr or 24hr format
+2) Hit 'n' for nepali
+3) Hit 'e' for english
+4) Hit 'c' for color toggle
+5) Hit '1' or'2' ... '7' to highlight the selected group
+
+-----------------------------------------------------------------------------------------------
+
+
+
+
+
+
