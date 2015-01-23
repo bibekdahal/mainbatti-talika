@@ -9,7 +9,7 @@ It's just a simple terminal/console application for viewing loadshedding schedul
 Usage:
 1) First thing's first, open the terminal.
 
-2) Hit the command "./mainbatti-talika [optional parameters -> filename, gourpID, neapli/english, 12hr/24hr format] "
+2) Hit the command "./mainbatti-talika.py [optional parameters -> filename, gourpID, neapli/english, 12hr/24hr format] "
    without any qotes.
 
 3) Optional Parameters:
