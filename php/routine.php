@@ -26,6 +26,7 @@ while ($row = $result->fetch_assoc()){
     $tables[$row['table-id']][$row['group-id']][$row['day']]['end'][] = date('h', $end).":".date('i', $end);
 }
 
+echo "<Routine>\n";
 foreach ($tables as $tableId => $groups){
     echo "<Table>\n";
     foreach($groups as $groupId => $days){
@@ -43,6 +44,7 @@ foreach ($tables as $tableId => $groups){
     }
     echo "</Table>\n";
 }
+echo "</Routine>\n";
 
 $db->close();
 ?>
