@@ -8,8 +8,17 @@ import RoutineReader
 import signal
 
 
+window = Gtk.Window()
+screen = window.get_screen()
+
 def OpenMainbattiTalika(w):
-    subprocess.call(["gnome-terminal", "--command=python3 " + os.path.dirname(os.path.realpath(__file__)) + "/mainbatti-talika.py"])
+    width = 125     # for 24-hr format display width = 160
+    height = 26
+    scr_w = screen.get_width()
+    scr_h = screen.get_height()
+    geomstr = str(width) + "x" + str(height) + "+" \
+                + str(int(scr_w/2-width*4.28)) + "+" + str(int(scr_h/2 - height*10))
+    subprocess.call(["gnome-terminal", "--geometry="+geomstr, "--title=Mainbatti Talika", "--command=python3 " + os.path.dirname(os.path.realpath(__file__)) + "/mainbatti-talika.py"])
 
 def Quit(w):
     Gtk.main_quit()
