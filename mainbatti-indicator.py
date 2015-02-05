@@ -32,6 +32,8 @@ def Quit(w):
 if __name__ == "__main__":
     signal.signal(signal.SIGINT, signal.SIG_DFL)
 
+    os.chdir(parentPath)
+
     ind = appindicator.Indicator.new_with_path(
                           "Mainbatti-Talika",
                           "mainbatti",
