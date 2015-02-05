@@ -11,6 +11,7 @@ import configUI
 
 window = Gtk.Window()
 screen = window.get_screen()
+parentPath = os.path.dirname(os.path.realpath(__file__))
 
 def OpenMainbattiTalika(w):
     width = 125     # for 24-hr format display width = 160
@@ -19,7 +20,8 @@ def OpenMainbattiTalika(w):
     scr_h = screen.get_height()
     geomstr = str(width) + "x" + str(height) + "+" \
                 + str(int(scr_w/2-width*4.28)) + "+" + str(int(scr_h/2 - height*10))
-    subprocess.call(["gnome-terminal", "--geometry="+geomstr, "--title=Mainbatti Talika", "--command=python3 " + os.path.dirname(os.path.realpath(__file__)) + "/mainbatti-talika.py"])
+
+    subprocess.call(["gnome-terminal", "--working-directory="+parentPath, "--geometry="+geomstr, "--title=Mainbatti Talika", "--command=python3 " + os.path.dirname(os.path.realpath(__file__)) + "/mainbatti-talika.py"])
 
 def Settings(w):
     configUI.main()
@@ -30,11 +32,12 @@ def Quit(w):
 if __name__ == "__main__":
     signal.signal(signal.SIGINT, signal.SIG_DFL)
 
-    ind = appindicator.Indicator.new (
-                          "example-simple-client",
-                          "starred",
-                          appindicator.IndicatorCategory.APPLICATION_STATUS)
-    ind.set_status (appindicator.IndicatorStatus.ACTIVE)
+    ind = appindicator.Indicator.new_with_path(
+                          "Mainbatti-Talika",
+                          "mainbatti",
+                          appindicator.IndicatorCategory.APPLICATION_STATUS,
+                          parentPath)
+    ind.set_status(appindicator.IndicatorStatus.ACTIVE)
 
     menu = Gtk.Menu()
     
