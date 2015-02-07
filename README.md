@@ -38,13 +38,13 @@ Following commands are available when the application is running.
 * Hit 'n' to display the schedule in Nepali
 * Hit 'e' to display the schedule in English
 * Hit 'c' to toggle the background of terminal between transparent and opaque. This only works if terminal is currently using a transparent background
-* Hit any of the number keys: '1', '2', ..., '7'  to change ground number. The schedule of that particular group is highlighted.
+* Hit any of the number keys: '1', '2', ..., '7'  to change group number. The schedule of that particular group is highlighted.
 * Use the arrow keys or 'h', 'j', 'k', 'l' keys to scroll the window if all schedule is not visible
 
 ## Default Settings
 The default settings are stored in JSON format in the file *`config.json`*.
 
-Currently only following settings are supported:
+Currently, following settings are supported:
 * Group - The default group number
 * Language - English/Nepali
 * Twelve-Hour - Boolean value specifying whether or not to use the 12-hour format
@@ -59,7 +59,7 @@ Example config.json:
 ```
 These settings can also be changed through the GUI python application *`configUI.py`*.
 
-## GTK AppIndicator
+## GNOME AppIndicator
 An app-indicator for GNOME is also available. The python script *`mainbatti-indicator.py`* can be executed to start the indicator. In Ubuntu, the indicator may be set up to auto-start by adding this python script to the Startup Applications.
 
 1. Open Dash
