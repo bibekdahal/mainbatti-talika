@@ -9,12 +9,12 @@ Mainbatti Talika can be run from terminal by executing the python script "mainba
 Simply run `mainbatti-talika.py` from a linux terminal to view the loadshedding schedule with default settings. For custom settings, you can provide additional parameters.
 
 ##### Optional Parameters
-`mainbatti-talika.py [<filename>] [g<N>] [--nepali]/[-n] [--twelve]/[-12]`
+`mainbatti-talika.py [<filename>] [--group<N>]/[-g<N>] [--nepali]/[-n] [--twelve]/[-12]`
 
 *`filename`*
 Specifies the XML file where the loadshedding schedule is stored. This file is read by the application and displayed in tabular format on the terminal.
 
-*`g<N>`*
+*`--group<N>`* or *`-g<N>`*
 Specifies a group number. The routine of this particular group is highlighted.
 
 *`--nepali`* or *`-n`*
@@ -24,7 +24,7 @@ Specifies that Nepali language should be used to display the time. Note that uni
 Specifies that 12-hour format should be used to display the time.
 
 ###### Examples
-`mainbatti-talika.py g4 -n -12`
+`mainbatti-talika.py -g4 -n -12`
 
 This will display the schedule using nepali numerals and twelve hour time format. Schedule of Group-4 is highlighted
 

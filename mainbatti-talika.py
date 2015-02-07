@@ -12,7 +12,7 @@ class ArgumentError(Exception):
     def display(self):
         print(''.join(self.message), self.arg)
 
-group_re = re.compile(r'^g[1-7]$')
+group_re = re.compile(r'^(--group[1-7])|(-g[1-7])$')
 time_re = re.compile(r'^(--twelve)|(-12)$')
 lang_re = re.compile(r'^(--nepali)|(-n)$')
 file_re = re.compile(r'^.+\.xml$')
@@ -53,7 +53,9 @@ def ArgumentParser():
     for arg in arguments:
         try:
             if IsGroup(arg):
-                group = int(arg[1])
+                #group = int(arg[1])
+                group = ''.join(re.findall(r'\d+', arg))
+                group = int(group)
                 print(group)
             elif IsTime(arg):
                 twelveHr = True
