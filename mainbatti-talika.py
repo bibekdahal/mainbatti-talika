@@ -13,8 +13,8 @@ class ArgumentError(Exception):
         print(''.join(self.message), self.arg)
 
 group_re = re.compile(r'^g[1-7]$')
-time_re = re.compile(r'^(-twelve)|(--12)$')
-lang_re = re.compile(r'^(-nepali)|(--n)$')
+time_re = re.compile(r'^(--twelve)|(-12)$')
+lang_re = re.compile(r'^(--nepali)|(-n)$')
 file_re = re.compile(r'^.+\.xml$')
 
 def IsGroup(input):
