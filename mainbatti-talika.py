@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
 
-import sys
+import sys, os
 import RoutineReader
 import re
 import json
+
+os.chdir(os.path.dirname(__file__))
 
 class ArgumentError(Exception):
     def __init__(self,message, arg):
@@ -56,16 +58,16 @@ def ArgumentParser():
                 #group = int(arg[1])
                 group = ''.join(re.findall(r'\d+', arg))
                 group = int(group)
-                print(group)
+                #print(group)
             elif IsTime(arg):
                 twelveHr = True
-                print(arg)
+                #print(arg)
             elif IsNepali(arg):
                 nepali = True
-                print(arg)
+                #print(arg)
             elif IsXML(arg):
                 filename = arg
-                print(arg)
+                #print(arg)
             else:
                 raise ArgumentError(":D cannot load... invlid argument : ", arg)
         except ArgumentError as e:
