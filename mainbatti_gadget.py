@@ -78,8 +78,8 @@ class TalikaGadget:
         times = reader.GetToday(4)
         now = datetime.datetime.now()
 
-        string = "    <span size='x-large' foreground='#1155ff'>Mainbatti Talika</span>    \n"
-        string += "<span foreground='#11ff55'>"
+        string = "    <span size='x-large' foreground='#EECBAD'>Mainbatti Talika</span>    \n"
+        string += "<span foreground='#DCDCDC'>"
         
         donechecking = False
         timeid = -1
@@ -111,10 +111,12 @@ class TalikaGadget:
         time = times[timeid]
         if inside:
             hr, mn = timediff(time["end"]["hr"], time["end"]["min"], now.hour, now.minute)
-            string += "\nPower comes after:\n" + RoutineReader.GetTime(hr, mn)
+            string += "<span foreground='#FFE4B5'>" + "\nPower comes after:\n" + "</span>" 
+            string += "<span foreground = '#DCDCDC'>" +  RoutineReader.GetTime(hr, mn) + "</span>"
         else:
             hr, mn = timediff(time["start"]["hr"], time["start"]["min"], now.hour, now.minute)
-            string += "\nPower goes in:\n" + RoutineReader.GetTime(hr, mn)
+            string += "<span foreground='#FFE4B5'>" + "\nPower goes in:\n" + "</span>"
+            string += "<span foregroung = '#DCDCDC'>" + RoutineReader.GetTime(hr,mm) + "</span>"
 
 
         self.label.set_markup("<b>"+string+"</b>");
