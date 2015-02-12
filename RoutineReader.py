@@ -5,6 +5,8 @@ import datetime
 
 GetNumber = CursesWindow.GetNumber
 
+DaysList = [ "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday" ]
+
 def TwoDigits(x):
     return GetNumber(x).rjust(2, GetNumber(0))
 
@@ -76,6 +78,11 @@ class RoutineReader:
                 table[int(groupX.attrib['id'])] = group
             self.tables.append(table)
 
+    def GetToday(self, group):
+        day = (datetime.datetime.today().weekday() + 1) % 7 
+        days = self.tables[0][group]
+        return days[DaysList[day]]
+
     def GetRoutine(self):
         tableId=1
         padding = 17
@@ -85,21 +92,19 @@ class RoutineReader:
         for table in self.tables:
             strings.append([""])
             strings.append(["Table #"+GetNumber(tableId)+":"])
-            strings.append(["Group".center(6), "Sunday".center(padding), "Monday".center(padding), "Tuesday".center(padding), \
-                    "Wednesday".center(padding), "Thursday".center(padding), "Friday".center(padding), "Saturday".center(padding)])
+
+            headings = ["Group".center(6)]
+            for day in DaysList:
+                headings.append(day.center(padding))
+            strings.append(headings)
             #strings.append([""])
             for groupId, group in table.items():
                 temp = GetNumber(groupId)
                 timeId = 0
                 while True:
-                    substr = [temp.center(6),\
-                        GetTimeString(group, "Sunday", timeId).center(padding), \
-                        GetTimeString(group, "Monday", timeId).center(padding), \
-                        GetTimeString(group, "Tuesday", timeId).center(padding), \
-                        GetTimeString(group, "Wednesday", timeId).center(padding), \
-                        GetTimeString(group, "Thursday", timeId).center(padding), \
-                        GetTimeString(group, "Friday", timeId).center(padding), \
-                        GetTimeString(group, "Saturday", timeId).center(padding)]
+                    substr = [temp.center(6)]
+                    for day in DaysList:
+                        substr.append(GetTimeString(group, day, timeId).center(padding))
                     if not any(':' in string for string in substr):
                         strings.append([""])
                         break

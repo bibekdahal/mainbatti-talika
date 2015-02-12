@@ -7,6 +7,7 @@ import subprocess
 import RoutineReader
 import signal
 import configUI
+import mainbatti_gadget
 
 
 window = Gtk.Window()
@@ -29,10 +30,24 @@ def Settings(w):
 def Quit(w):
     Gtk.main_quit()
 
+def ShowGadget(w, i, d):
+    gadget.window.Present()
+
+def GadgetToggle(w):
+    global gadget
+    if w.get_active():
+        gadget = mainbatti_gadget.TalikaGadget()
+    else:
+        gadget.window.close()
+        del gadget
+
 if __name__ == "__main__":
     signal.signal(signal.SIGINT, signal.SIG_DFL)
 
     os.chdir(parentPath)
+
+    global gadget
+    gadget = mainbatti_gadget.TalikaGadget()
 
     ind = appindicator.Indicator.new_with_path(
                           "Mainbatti-Talika",
@@ -54,11 +69,21 @@ if __name__ == "__main__":
     mitem = Gtk.SeparatorMenuItem()
     menu.append(mitem)
 
+    mitem = Gtk.CheckMenuItem("Gadget")
+    mitem.set_active(True)
+    mitem.connect("toggled", GadgetToggle)
+    menu.append(mitem)
+    
+    mitem = Gtk.SeparatorMenuItem()
+    menu.append(mitem)
+
     mitem = Gtk.MenuItem("Quit")
     mitem.connect("activate", Quit)
     menu.append(mitem)
 
     menu.show_all()
     ind.set_menu(menu)
+
+    ind.connect("scroll-event", ShowGadget)
 
     Gtk.main()
