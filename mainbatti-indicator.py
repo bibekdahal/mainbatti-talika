@@ -24,14 +24,20 @@ def OpenMainbattiTalika(w):
 
     subprocess.call(["gnome-terminal", "--working-directory="+parentPath, "--geometry="+geomstr, "--title=Mainbatti Talika", "--command=python3 " + os.path.dirname(os.path.realpath(__file__)) + "/mainbatti-talika.py"])
 
+def SettingsChanged():
+    if gadget:
+        gadget.Refresh()
+
 def Settings(w):
+    configUI.ChangeHandler = SettingsChanged
     configUI.main()
 
 def Quit(w):
     Gtk.main_quit()
 
 def ShowGadget(w, i, d):
-    gadget.window.Present()
+    if gadget:
+        gadget.window.Present()
 
 def GadgetToggle(w):
     global gadget

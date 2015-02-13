@@ -24,6 +24,10 @@ def SaveConfig(config):
     configstr = json.dumps(config, indent=4)
     open("config.json", "w").write(configstr)
  
+def Nothing():
+    pass
+
+ChangeHandler = Nothing
 
 class ConfigWindow(Gtk.Window):
 
@@ -87,6 +91,7 @@ class ConfigWindow(Gtk.Window):
             config["Language"] = "English"
         config["Twelve-Hour"] = self.hrformat.get_active()
         SaveConfig(config)
+        ChangeHandler()
         self.close()
 
     def Close(self, w):

@@ -6,6 +6,7 @@ from gi.repository import GLib
 import cairo
 import signal
 import datetime
+import json
 
 import RoutineReader
 
@@ -20,6 +21,24 @@ def transparent_expose(widget, cr):
     cr.set_operator(cairo.OPERATOR_SOURCE)
     cr.paint()
     cr.set_operator(cairo.OPERATOR_OVER)
+
+def ReadSettings():
+    #load defaults from configuration file
+    group = 1
+    nepali = False
+    twelveHr = False
+    try:
+        configstr = open("config.json").read()
+        config = json.loads(configstr)
+        if "Group" in config:
+            group = config["Group"]
+        if "Language" in config and config["Language"] == "Nepali":
+            nepali = True
+        if "Twelve-Hour" in config:
+            twelveHr = config["Twelve-Hour"]
+    except:
+        print("Couldn't load configuration file: config.json")
+    return group, nepali, twelveHr
 
 class DesktopWindow(Gtk.Window):
     def __init__(self, *args):
@@ -75,7 +94,8 @@ class TalikaGadget:
         self.Refresh()
 
     def Refresh(self):
-        times = reader.GetToday(4)
+        group, nepali, twelveHr = ReadSettings()
+        times = reader.GetToday(group)
         now = datetime.datetime.now()
 
         string = "    <span size='x-large' foreground='#EECBAD'>Mainbatti Talika</span>    \n"
@@ -126,5 +146,5 @@ class TalikaGadget:
 
 if __name__ == "__main__":
     signal.signal(signal.SIGINT, signal.SIG_DFL)
-    instance = TalikaGadget()
+    gadget = TalikaGadget()
     Gtk.main()
