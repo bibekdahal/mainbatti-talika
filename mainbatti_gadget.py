@@ -9,6 +9,7 @@ import datetime
 import json
 
 import RoutineReader
+import CursesWindow
 
 def timediff(h1, m1, h2, m2):
     t1 = h1*60+m1
@@ -97,6 +98,13 @@ class TalikaGadget:
         group, nepali, twelveHr = ReadSettings()
         times = reader.GetToday(group)
         now = datetime.datetime.now()
+
+        if nepali:
+            CursesWindow.Language = CursesWindow.Nepali
+        else:
+            CursesWindow.Language = CursesWindow.English
+
+        CursesWindow.Hour24 = not twelveHr
 
         string = "    <span size='x-large' foreground='#EECBAD'>Mainbatti Talika</span>    \n"
         string += "<span foreground='#DCDCDC'>"
