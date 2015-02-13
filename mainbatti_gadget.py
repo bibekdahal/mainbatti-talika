@@ -136,7 +136,7 @@ class TalikaGadget:
         else:
             hr, mn = timediff(time["start"]["hr"], time["start"]["min"], now.hour, now.minute)
             string += "<span foreground='#FFE4B5'>" + "\nPower goes in:\n" + "</span>"
-            string += "<span foregroung = '#DCDCDC'>" + RoutineReader.GetTime(hr,mm) + "</span>"
+            string += "<span foreground = '#DCDCDC'>" + RoutineReader.GetTime(hr,mn) + "</span>"
 
 
         self.label.set_markup("<b>"+string+"</b>");
