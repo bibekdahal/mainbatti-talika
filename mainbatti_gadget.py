@@ -96,7 +96,9 @@ class TalikaGadget:
 
     def Refresh(self):
         group, nepali, twelveHr = ReadSettings()
-        times = reader.GetToday(group)
+
+        today = (datetime.datetime.today().weekday() + 1) % 7 
+        times = reader.GetDay(today, group)
         now = datetime.datetime.now()
 
         if nepali:
@@ -135,9 +137,17 @@ class TalikaGadget:
                             timeid = i
 
         string += "</span>"
-
         time = times[timeid]
-        if inside:
+        if timeid == -1:
+            tomorrow = reader.GetDay((today+1)%7, group)
+            if len(tomorrow) > 0:
+                hr, mn = timediff(24, 00, now.hour, now.minute)
+                tm = hr*60+mn + tomorrow[0]["start"]["hr"]*60 + tomorrow[0]["start"]["min"]
+                hr, mn = int(tm/60), tm%60
+            string += "<span foreground='#FFE4B5'>" + "\nPower goes in:\n" + "</span>"
+            string += "<span foreground = '#DCDCDC'>" + RoutineReader.GetTime(hr,mn) + "</span>"
+
+        elif inside:
             hr, mn = timediff(time["end"]["hr"], time["end"]["min"], now.hour, now.minute)
             string += "<span foreground='#FFE4B5'>" + "\nPower comes after:\n" + "</span>" 
             string += "<span foreground = '#DCDCDC'>" +  RoutineReader.GetTime(hr, mn) + "</span>"

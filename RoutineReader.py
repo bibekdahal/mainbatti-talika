@@ -78,8 +78,7 @@ class RoutineReader:
                 table[int(groupX.attrib['id'])] = group
             self.tables.append(table)
 
-    def GetToday(self, group):
-        day = (datetime.datetime.today().weekday() + 1) % 7 
+    def GetDay(self, day, group):
         days = self.tables[0][group]
         return days[DaysList[day]]
 
