@@ -18,6 +18,7 @@ group_re = re.compile(r'^(--group[1-7])|(-g[1-7])$')
 time_re = re.compile(r'^(--twelve)|(-12)$')
 lang_re = re.compile(r'^(--nepali)|(-n)$')
 file_re = re.compile(r'^.+\.xml$')
+help_re = re.compile(r'^(-h)|(--help)$')
 
 def IsGroup(input):
     return bool(group_re.match(input))
@@ -30,6 +31,10 @@ def IsNepali(input):
 
 def IsXML(input):
     return bool(file_re.match(input))
+
+def IsHelp(input):
+    return bool(help_re.match(input))
+
 
 def ArgumentParser():
     arguments = sys.argv[1::]
@@ -68,12 +73,19 @@ def ArgumentParser():
             elif IsXML(arg):
                 filename = arg
                 #print(arg)
+            elif IsHelp(arg):
+                file = open("help.txt","r")
+                print(file.read())
+                file.close();
+                return
             else:
                 raise ArgumentError(":D cannot load... invlid argument : ", arg)
         except ArgumentError as e:
             e.display()
             return
-    
+        except IOError:
+            print(" LOL file doesnt exist")
+
     try:
         if not filename:
             raise ArgumentError(":D cannot load... invlid filename : ", filename)
