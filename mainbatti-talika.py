@@ -38,7 +38,7 @@ def IsHelp(input):
 
 def ArgumentParser():
     arguments = sys.argv[1::]
-    filename = "test.xml"
+    filename = "routine.xml"
 
     group = -1
     twelveHr = False
