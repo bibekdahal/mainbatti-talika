@@ -72,7 +72,7 @@ class TalikaGadget:
 
         global reader
         reader = RoutineReader.RoutineReader()
-        reader.ReadFile("test.xml");
+        reader.ReadFile("routine.xml");
        
         self.window = DesktopWindow()
         screen = self.window.get_screen()

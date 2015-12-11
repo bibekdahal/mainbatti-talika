@@ -2,6 +2,7 @@
 
 import sys, os
 import RoutineReader
+import RoutineUpdater
 import re
 import json
 
@@ -14,6 +15,7 @@ class ArgumentError(Exception):
     def display(self):
         print(''.join(self.message), self.arg)
 
+update_re = re.compile(r'^--update$')
 group_re = re.compile(r'^(--group[1-7])|(-g[1-7])$')
 time_re = re.compile(r'^(--twelve)|(-12)$')
 lang_re = re.compile(r'^(--nepali)|(-n)$')
@@ -35,16 +37,26 @@ def IsXML(input):
 def IsHelp(input):
     return bool(help_re.match(input))
 
+def IsUpdate(input):
+    return bool(update_re.match(input))
+
+def update():
+    try:
+        RoutineUpdater.main()
+        print("Updated successfully")
+    except:
+        print("Couldn't update. Check your connection.")
 
 def ArgumentParser():
     arguments = sys.argv[1::]
-    filename = "test.xml"
+    filename = "routine.xml"
 
     group = -1
     twelveHr = False
     nepali = False
+    autoupdate = True
     
-#load defaults from configuration file
+    #load defaults from configuration file
     try:
         configstr = open("config.json").read()
         config = json.loads(configstr)
@@ -54,12 +66,17 @@ def ArgumentParser():
             nepali = True
         if "Twelve-Hour" in config:
             twelveHr = config["Twelve-Hour"]
+        if "Auto-Update" in config:
+            autoupdate = config["Auto-Update"]
     except:
         print("Couldn't load configuration file: config.json")
     
     for arg in arguments:
         try:
-            if IsGroup(arg):
+            if IsUpdate(arg):
+                update()
+                return
+            elif IsGroup(arg):
                 #group = int(arg[1])
                 group = ''.join(re.findall(r'\d+', arg))
                 group = int(group)
@@ -79,12 +96,17 @@ def ArgumentParser():
                 file.close();
                 return
             else:
-                raise ArgumentError(":D cannot load... invlid argument : ", arg)
+                raise ArgumentError(":D cannot load... invalid argument : ", arg)
         except ArgumentError as e:
             e.display()
             return
         except IOError:
             print(" LOL file doesnt exist")
+            return
+
+
+    if autoupdate:
+        update()
 
     try:
         if not filename:

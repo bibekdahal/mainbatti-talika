@@ -4,7 +4,9 @@ from gi.repository import AppIndicator3 as appindicator
 
 import os
 import subprocess
+
 import RoutineReader
+import RoutineUpdater
 import signal
 import configUI
 import mainbatti_gadget
@@ -15,14 +17,20 @@ screen = window.get_screen()
 parentPath = os.path.dirname(os.path.realpath(__file__))
 
 def update():
-    pass
+    try:
+        RoutineUpdater.main()
+        print("Updated successfully")
+        return True
+    except:
+        print("Couldn't update. Check your connection.")
+        return False
 
 def Update(w):
     u = update()
 
     if not u:
         dialog = Gtk.MessageDialog(window, 0, Gtk.MessageType.INFO,
-                Gtk.ButtonsType.OK, "Couldn't update")
+                Gtk.ButtonsType.OK, "Couldn't update. Check your connection.")
         dialog.run()
         dialog.destroy()
 

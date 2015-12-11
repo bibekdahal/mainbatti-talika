@@ -42,6 +42,7 @@ class ConfigWindow(Gtk.Window):
 
         grid = Gtk.Grid(row_homogeneous=True, column_homogeneous=True)
         grid.props.margin_top = 20
+        grid.props.margin_left = 20
         grid.props.margin_right = 20
         grid.props.margin_bottom = 20
         self.add(grid)
@@ -67,9 +68,14 @@ class ConfigWindow(Gtk.Window):
             self.lang.set_active(0)
 
         check = Gtk.CheckButton("12-Hour Format")
-        grid.attach(check, 2, 2, 2, 1)
+        grid.attach(check, 0, 2, 2, 1)
         self.hrformat = check
         self.hrformat.set_active(config["Twelve-Hour"])
+
+        check = Gtk.CheckButton("Auto-Update\non startup")
+        grid.attach(check, 2, 2, 2, 1)
+        self.autoupdate = check
+        self.autoupdate.set_active(config["Auto-Update"])
 
         okButton = Gtk.Button("Apply")
         okButton.props.margin_top = 10
@@ -92,6 +98,7 @@ class ConfigWindow(Gtk.Window):
         else:
             config["Language"] = "English"
         config["Twelve-Hour"] = self.hrformat.get_active()
+        config["Auto-Update"] = self.autoupdate.get_active()
         SaveConfig(config)
         ChangeHandler()
         self.close()

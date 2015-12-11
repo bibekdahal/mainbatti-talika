@@ -147,7 +147,7 @@ def main(filename, group = -1, nepali = False, twelveHr = False):
         main(filename)
         
 if __name__ == "__main__":
-    filename = "test.xml"
+    filename = "routine.xml"
     if len(sys.argv) > 1:
         filename = sys.argv[1]
     main(filename)
