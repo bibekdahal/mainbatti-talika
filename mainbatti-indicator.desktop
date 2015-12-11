@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=Mainbatti-Indicator
+Exec=bash -c "cd /home/bibek/projects/mainbatti-talika && python3 mainbatti-indicator.py"
+Icon=/home/bibek/projects/mainbatti-talika/mainbatti.png
+Comment=<optinal comments>
+X-GNOME-Autostart-enabled=true

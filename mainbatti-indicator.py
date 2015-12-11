@@ -19,10 +19,8 @@ parentPath = os.path.dirname(os.path.realpath(__file__))
 def update():
     try:
         RoutineUpdater.main()
-        print("Updated successfully")
         return True
     except:
-        print("Couldn't update. Check your connection.")
         return False
 
 def Update(w):
