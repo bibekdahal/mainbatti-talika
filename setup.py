@@ -26,7 +26,12 @@ finalpath = os.path.expanduser('~') + "/.config/autostart/"
 if not os.path.exists(finalpath):
     os.makedirs(finalpath)
 
+finalpath2 = os.path.expanduser('~') + "/.local/share/applications/"
+if not os.path.exists(finalpath2):
+    os.makedirs(finalpath2)
+
 shutil.copyfile(deskfile, finalpath+"mainbatti-indicator.desktop")
+shutil.copyfile(deskfile, finalpath2+"mainbatti-indicator.desktop")
 
 if not os.fork():
     os.system('python3 "' + path+"/mainbatti-indicator.py" + '"')

@@ -3,6 +3,7 @@ from gi.repository import Gtk
 from gi.repository import AppIndicator3 as appindicator
 
 import os
+import fcntl, sys
 import subprocess
 
 import RoutineReader
@@ -66,6 +67,15 @@ def GadgetToggle(w):
         del gadget
 
 if __name__ == "__main__":
+    # Don't run two instances
+    pid_file = 'program.pid'
+    fp = open(pid_file, 'w')
+    try:
+        fcntl.lockf(fp, fcntl.LOCK_EX | fcntl.LOCK_NB)
+    except IOError:
+        # another instance is running
+        sys.exit(0)
+
     signal.signal(signal.SIGINT, signal.SIG_DFL)
 
     config = configUI.LoadConfig()
