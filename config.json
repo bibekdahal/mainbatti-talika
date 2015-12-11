@@ -1,5 +1,6 @@
 {
     "Group": 4,
+    "Twelve-Hour": false,
     "Language": "Nepali",
-    "Twelve-Hour": false
+    "Auto-Update": true
 }

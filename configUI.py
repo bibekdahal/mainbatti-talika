@@ -16,6 +16,8 @@ def LoadConfig():
             config["Language"] = "English"
         if not "Twelve-Hour" in config:
             config["Twelve-Hour"] = False
+        if not "Auto-Update" in config:
+            config["Auto-Update"] = True
     except:
         print("Couldn't load configuration file: config.json")
     return config

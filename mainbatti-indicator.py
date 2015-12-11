@@ -14,6 +14,18 @@ window = Gtk.Window()
 screen = window.get_screen()
 parentPath = os.path.dirname(os.path.realpath(__file__))
 
+def update():
+    pass
+
+def Update(w):
+    u = update()
+
+    if not u:
+        dialog = Gtk.MessageDialog(window, 0, Gtk.MessageType.INFO,
+                Gtk.ButtonsType.OK, "Couldn't update")
+        dialog.run()
+        dialog.destroy()
+
 def OpenMainbattiTalika(w):
     width = 125     # for 24-hr format display width = 160
     height = 26
@@ -50,6 +62,10 @@ def GadgetToggle(w):
 if __name__ == "__main__":
     signal.signal(signal.SIGINT, signal.SIG_DFL)
 
+    config = configUI.LoadConfig()
+    if config["Auto-Update"]:
+        update()
+
     os.chdir(parentPath)
 
     global gadget
@@ -71,7 +87,11 @@ if __name__ == "__main__":
     mitem = Gtk.MenuItem("Settings")
     menu.append(mitem)
     mitem.connect("activate", Settings)
-    
+ 
+    mitem = Gtk.MenuItem("Check for updates")
+    menu.append(mitem)
+    mitem.connect("activate", Update)   
+
     mitem = Gtk.SeparatorMenuItem()
     menu.append(mitem)
 
