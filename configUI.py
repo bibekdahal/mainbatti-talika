@@ -8,7 +8,8 @@ def LoadConfig():
     #load defaults from configuration file
     config = {}
     try:
-        configstr = open("config.json").read()
+        filepath= os.path.dirname(os.path.abspath(__file__))
+        configstr = open(filepath + "/config.json").read()
         config = json.loads(configstr)
         if not "Group" in config:
             config["Group"] = 1
