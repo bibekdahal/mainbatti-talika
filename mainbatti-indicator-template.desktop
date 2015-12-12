@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=Mainbatti-Indicator
+Exec=bash -c "cd <path> && python3 mainbatti-indicator.py"
+Icon=<icon>
+Comment=<optinal comments>
+X-GNOME-Autostart-enabled=true
