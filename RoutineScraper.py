@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
 
-import requests
+import requests, re
 from bs4 import BeautifulSoup
 from collections import OrderedDict
 
 days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+compiled_re = re.compile(r"[0-9]{2}:[0-9]{2}-[0-9]{2}:[0-9]{2}")
 
 class ManualError(Exception):
     def __init__(self, args):
@@ -23,7 +24,43 @@ def check_update(new_content):
         print("file doesnot exist")
         old = open('routine.html', 'w')
         old.write(new_content)
-        return False
+
+def extract_time(text):
+    return compiled_re.findall(text)
+
+def scrap_routine2(url):
+    """
+    returns a dictionary whose key is group number for routine as:
+    Each value in dictionary is another dictionary whose key is day and value is list of loadshedding time
+    ['1'] = {'Sunday' : [time1, time2], 'Monday' : [time1, time2], ....}
+    and so on
+    """
+    # uses myrepublica's routine
+    # store the result
+    result = {}
+    response = requests.get(url)
+    # try:
+    if response.status_code != 200:
+        raise ManualError("error fetching, please check your connection perhaps...")
+    else:
+        # root extractor
+        extractor = BeautifulSoup(response.content, "html.parser")
+        # there are 2 tables in the site, first is of routine
+        table = extractor.select('table')
+        routine_table = table[0]
+        routine_data = routine_table.find_all('tr')[1::]
+        for group, tr in enumerate(routine_data):
+            routine = OrderedDict()
+            td_list = tr.find_all('td')
+            days_index = 0
+            for td in td_list:
+                time_list = extract_time(td.get_text())
+                if time_list:
+                    routine[days[days_index]] = time_list
+                    days_index += 1
+            result[str(group+1)] = routine
+    print(result)
+    return result
 
 def scrap_routine(url):
     """
@@ -96,8 +133,10 @@ def display_test(routine):
 
 def main():
     # check_new("hello")
-    url = "http://battigayo.com/schedule"
-    routine = scrap_routine(url)
+    #url = "http://battigayo.com/schedule"
+    url = "http://myrepublica.com/load-shedding.html"
+    #routine = scrap_routine(url)
+    routine = scrap_routine2(url)
     #display_test(routine)
     write_xml(routine)
 
