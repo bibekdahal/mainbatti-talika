@@ -1,6 +1,6 @@
 {
     "Twelve-Hour": false,
-    "Group": 6,
+    "Auto-Update": false,
     "Language": "English",
-    "Auto-Update": true
+    "Group": 6
 }

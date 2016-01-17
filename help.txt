@@ -6,6 +6,7 @@ Commandline Options:
     -12,    --twelve    enable 12 hour mode
     -n,     --nepali    change language to nepali
     -h,     --help      display help message
+    -u,     --update    update the schedule
 
 Application Options:
     <N>     Highlight group N (1-7)

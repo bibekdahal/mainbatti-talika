@@ -15,7 +15,7 @@ class ArgumentError(Exception):
     def display(self):
         print(''.join(self.message), self.arg)
 
-update_re = re.compile(r'^--update$')
+update_re = re.compile(r'^(--update)|(-u)$')
 group_re = re.compile(r'^(--group[1-7])|(-g[1-7])$')
 time_re = re.compile(r'^(--twelve)|(-12)$')
 lang_re = re.compile(r'^(--nepali)|(-n)$')
@@ -42,6 +42,7 @@ def IsUpdate(input):
 
 def update():
     try:
+        print("...updating...")
         RoutineUpdater.main()
         print("Updated successfully")
     except:
