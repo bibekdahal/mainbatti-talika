@@ -60,6 +60,11 @@ def ShowGadget(w, i, d):
 
 def GadgetToggle(w):
     global gadget
+
+    # save the state as settings
+    config = configUI.LoadConfig()
+    config["Gadget"] = not config["Gadget"]
+    configUI.SaveConfig(config)
     if w.get_active():
         gadget = mainbatti_gadget.TalikaGadget()
     else:
@@ -85,7 +90,11 @@ if __name__ == "__main__":
     os.chdir(parentPath)
 
     global gadget
-    gadget = mainbatti_gadget.TalikaGadget()
+    # load gadget according to settings
+    if config["Gadget"]:
+        gadget = mainbatti_gadget.TalikaGadget()
+    else:
+        gadget = None
 
     ind = appindicator.Indicator.new_with_path(
                           "Mainbatti-Talika",
@@ -112,7 +121,7 @@ if __name__ == "__main__":
     menu.append(mitem)
 
     mitem = Gtk.CheckMenuItem("Gadget")
-    mitem.set_active(True)
+    mitem.set_active(config["Gadget"])
     mitem.connect("toggled", GadgetToggle)
     menu.append(mitem)
     

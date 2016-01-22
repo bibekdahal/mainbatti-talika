@@ -1,6 +1,7 @@
 {
-    "Twelve-Hour": false,
+    "Gadget": false,
+    "Group": 6,
     "Auto-Update": false,
     "Language": "English",
-    "Group": 6
+    "Twelve-Hour": false
 }

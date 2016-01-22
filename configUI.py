@@ -19,13 +19,16 @@ def LoadConfig():
             config["Twelve-Hour"] = False
         if not "Auto-Update" in config:
             config["Auto-Update"] = True
+        if not "Gadget" in config:
+            config["Gadget"] = False
     except:
         print("Couldn't load configuration file: config.json")
     return config
 
 def SaveConfig(config):
+    path = os.path.dirname(os.path.abspath(__file__))
     configstr = json.dumps(config, indent=4)
-    open("config.json", "w").write(configstr)
+    open(path + "/config.json", "w").write(configstr)
  
 def Nothing():
     pass
